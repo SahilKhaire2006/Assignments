@@ -47,7 +47,7 @@ In this program, we perform basic string operations **manually** without using p
 
 **Code** :
       
-```
+```c
 #include<stdio.h>
 
 int lengthstr_sak(char str_sak[]) {
