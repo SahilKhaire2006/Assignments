@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+struct Node_sak {
+    int data_sak;
+    Node_sak *left_sak, *right_sak;
+};
+
+Node_sak* createNode_sak(int data_sak) {
+    Node_sak* newNode_sak = new Node_sak();
+    newNode_sak->data_sak = data_sak;
+    newNode_sak->left_sak = newNode_sak->right_sak = NULL;
+    return newNode_sak;
+}
+
+Node_sak* insertNode_sak(Node_sak* root_sak, int data_sak) {
+    if (root_sak == NULL)
+        return createNode_sak(data_sak);
+    if (data_sak < root_sak->data_sak)
+        root_sak->left_sak = insertNode_sak(root_sak->left_sak, data_sak);
+    else if (data_sak > root_sak->data_sak)
+        root_sak->right_sak = insertNode_sak(root_sak->right_sak, data_sak);
+    return root_sak;
+}
+
+int findMin_sak(Node_sak* root_sak) {
+    if (root_sak == NULL) {
+        cout << "Tree is empty.\n";
+        return -1;
+    }
+    while (root_sak->left_sak != NULL)
+        root_sak = root_sak->left_sak;
+    return root_sak->data_sak;
+}
+
+int findMax_sak(Node_sak* root_sak) {
+    if (root_sak == NULL) {
+        cout << "Tree is empty.\n";
+        return -1;
+    }
+    while (root_sak->right_sak != NULL)
+        root_sak = root_sak->right_sak;
+    return root_sak->data_sak;
+}
+
+void inorder_sak(Node_sak* root_sak) {
+    if (root_sak != NULL) {
+        inorder_sak(root_sak->left_sak);
+        cout << root_sak->data_sak << " ";
+        inorder_sak(root_sak->right_sak);
+    }
+}
+
+int main() {
+    Node_sak* root_sak = NULL;
+    int choice_sak, value_sak;
+    while (true) {
+        cout << "\n1. Insert Node\n2. Display (Inorder)\n3. Find Minimum\n4. Find Maximum\n5. Exit\nEnter choice: ";
+        cin >> choice_sak;
+        switch (choice_sak) {
+            case 1:
+                cout << "Enter value: ";
+                cin >> value_sak;
+                root_sak = insertNode_sak(root_sak, value_sak);
+                break;
+            case 2:
+                cout << "Inorder Traversal: ";
+                inorder_sak(root_sak);
+                cout << endl;
+                break;
+            case 3:
+                cout << "Minimum Value: " << findMin_sak(root_sak) << endl;
+                break;
+            case 4:
+                cout << "Maximum Value: " << findMax_sak(root_sak) << endl;
+                break;
+            case 5:
+                return 0;
+            default:
+                cout << "Invalid choice\n";
+        }
+    }
+}
